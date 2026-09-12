@@ -35,7 +35,7 @@ graph LR
     UCI --> PROD[TDD Tests + Verified Production Code]
 ```
 
-1. **[`use-case-expert`](skills/requirements/use-case-expert/SKILL.md)**: Authors, interviews, and audits formal Use Case specifications (Actors, Preconditions, Main Success Scenario, Extensions, and THAT-formula Postconditions).
+1. **[`use-case-expert`](skills/requirements/use-case-expert/SKILL.md)**: Authors, interviews, and audits formal Use Case specifications (Actors, Preconditions, Main Success Scenario, Extensions, and Verifiable Postconditions).
 2. **[`use-case-implementer`](skills/requirements/use-case-implementer/SKILL.md)**: Turns approved specs into complete TDD suites and vertical production slices with zero speculative bloat.
 3. **[`use-case-reverse-engineer`](skills/requirements/use-case-reverse-engineer/SKILL.md)**: Scans legacy codebases and extracts the hidden behavioral contract as formal Use Cases.
 
@@ -66,7 +66,7 @@ Place the skill directories into your agent's skill directory:
 
 | Guide | Description | Language |
 | --- | --- | --- |
-| 📖 [Usage Guide](docs/usage-guide.md) | Triad overview, workflow diagrams, and THAT formula | 🇬🇧 English |
+| 📖 [Usage Guide](docs/usage-guide.md) | Triad overview and end-to-end workflow walkthrough | 🇬🇧 English |
 | 📖 [use-case-expert Guide](docs/requirements/use-case-expert.md) | Authoring & auditing formal Use Case specifications | 🇬🇧 English |
 | 📖 [use-case-implementer Guide](docs/requirements/use-case-implementer.md) | TDD implementation & vertical slices | 🇬🇧 English |
 | 📖 [use-case-reverse-engineer Guide](docs/requirements/use-case-reverse-engineer.md) | Reconstructing contracts from existing code | 🇬🇧 English |
@@ -74,15 +74,6 @@ Place the skill directories into your agent's skill directory:
 | 🇩🇪 [use-case-expert (DE)](docs/requirements/de/use-case-expert.md) | Spezifikationen erstellen & auditieren | 🇩🇪 Deutsch |
 | 🇩🇪 [use-case-implementer (DE)](docs/requirements/de/use-case-implementer.md) | TDD-Umsetzung & Verifikation | 🇩🇪 Deutsch |
 | 🇩🇪 [use-case-reverse-engineer (DE)](docs/requirements/de/use-case-reverse-engineer.md) | Code analysieren & Spezifikationen rekonstruieren | 🇩🇪 Deutsch |
-
----
-
-## 🎯 The "THAT" Formula
-
-Vague postconditions cause agent hallucinations. The Triad enforces strict state mutations:
-
-- ❌ *Bad:* "The system updates the user profile."
-- ✅ *Good:* "System confirms **THAT** `User.email` is persisted in the database **AND** `Session.status` is set to `ACTIVE`."
 
 ---
 

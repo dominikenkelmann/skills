@@ -35,7 +35,7 @@ graph LR
     UCI --> PROD[TDD Tests + Verifizierter Produktionscode]
 ```
 
-1. **[`use-case-expert`](skills/requirements/use-case-expert/SKILL.md)**: Erstellt, interviewt und auditiert formale Use-Case-Spezifikationen (Akteure, Vorbedingungen, Standardablauf, Erweiterungen/Fehlerfälle und DASS-Nachbedingungen).
+1. **[`use-case-expert`](skills/requirements/use-case-expert/SKILL.md)**: Erstellt, interviewt und auditiert formale Use-Case-Spezifikationen (Akteure, Vorbedingungen, Standardablauf, Erweiterungen/Fehlerfälle und verifizierbare Zustandsgarantien).
 2. **[`use-case-implementer`](skills/requirements/use-case-implementer/SKILL.md)**: Verwandelt freigegebene Spezifikationen in vollständige TDD-Suiten und vertikale Produktions-Slices ohne spekulativen Overhead.
 3. **[`use-case-reverse-engineer`](skills/requirements/use-case-reverse-engineer/SKILL.md)**: Analysiert bestehende Codebasen und rekonstruiert den impliziten Verhaltensvertrag als formale Use Cases.
 
@@ -66,23 +66,14 @@ Legen Sie die Skill-Verzeichnisse in das Skill-Verzeichnis Ihres Agenten:
 
 | Anleitung | Beschreibung | Sprache |
 | --- | --- | --- |
-| 🇩🇪 [Dokumentations-Übersicht](docs/requirements/de/README.md) | Gesamte Architektur, Triade-Workflow & DASS-Formel | 🇩🇪 Deutsch |
+| 🇩🇪 [Dokumentations-Übersicht](docs/requirements/de/README.md) | Gesamte Architektur & Triade-Workflow | 🇩🇪 Deutsch |
 | 🇩🇪 [use-case-expert Anleitung](docs/requirements/de/use-case-expert.md) | Spezifikationen erstellen & auditieren | 🇩🇪 Deutsch |
 | 🇩🇪 [use-case-implementer Anleitung](docs/requirements/de/use-case-implementer.md) | TDD-Umsetzung & Verifikation | 🇩🇪 Deutsch |
 | 🇩🇪 [use-case-reverse-engineer Anleitung](docs/requirements/de/use-case-reverse-engineer.md) | Code analysieren & Spezifikationen rekonstruieren | 🇩🇪 Deutsch |
-| 🇬🇧 [English Usage Guide](docs/usage-guide.md) | Triad overview & THAT formula | 🇬🇧 English |
+| 🇬🇧 [English Usage Guide](docs/usage-guide.md) | Triad overview & workflow | 🇬🇧 English |
 | 🇬🇧 [use-case-expert (EN)](docs/requirements/use-case-expert.md) | Authoring & auditing specs | 🇬🇧 English |
 | 🇬🇧 [use-case-implementer (EN)](docs/requirements/use-case-implementer.md) | TDD implementation & vertical slices | 🇬🇧 English |
 | 🇬🇧 [use-case-reverse-engineer (EN)](docs/requirements/use-case-reverse-engineer.md) | Extracting specs from existing code | 🇬🇧 English |
-
----
-
-## 🎯 Die „DASS“-Formel
-
-Vage Nachbedingungen führen zu Halluzinationen. Die Triade erzwingt strikte Zustandsänderungen:
-
-- ❌ *Schlecht:* „Das System aktualisiert das Benutzerprofil.“
-- ✅ *Präzise:* „System bestätigt, **DASS** `User.email` in der Datenbank persistiert ist **UND** `Session.status` auf `ACTIVE` gesetzt ist.“
 
 ---
 
