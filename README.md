@@ -1,146 +1,91 @@
-# Use Case Skills for AI Coding Agents
+# Dominik's Skill Collection: The Use Case Triad
 
-> **Deterministic software engineering for Claude Code, Codex, Antigravity, and AI coding agents.**  
-> Move beyond vague user stories and PRD drift with formal use cases, vertical slices, and verifiable postconditions.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Status: Active](https://img.shields.io/badge/Status-Active-brightgreen.svg)]()
+[![Languages](https://img.shields.io/badge/Languages-English%20%7C%20Deutsch-orange.svg)]()
 
----
-
-## ⚡ 30-Second Quickstart
-
-Copy the skills directly into your workspace's `.agents/skills/` directory:
-
-```bash
-# Clone the repository
-git clone https://github.com/dominikenkelmann/skills.git
-
-# Copy all use case skills into your active workspace
-mkdir -p .agents/skills
-cp -r skills/skills/requirements/* .agents/skills/
-```
-
-For **Antigravity IDE** or **Claude Code**, the skills are automatically discovered once placed inside `.agents/skills/` or your global customization directory (`~/.gemini/config/skills/`).
+> **Deterministic Requirements Engineering for AI Coding Agents**  
+> Replace speculative user stories and rambling PRDs with formal, testable Cockburn/RUP Use Cases.
 
 ---
 
-## 🧩 The Use Case Skills Triad
-
-| Skill | Category | Description | Direct Link |
-|---|---|---|---|
-| **`use-case-expert`** | `requirements` | Authors, de-vagues, and formalizes UC-XXX specifications & supplementary NFRs using strict templates and THAT formulas. | [SKILL.md](./skills/requirements/use-case-expert/SKILL.md) |
-| **`use-case-implementer`** | `requirements` | Translates formal use case specs into domain-driven vertical slices, guard clauses, and test assertions mapped to postconditions. | [SKILL.md](./skills/requirements/use-case-implementer/SKILL.md) |
-| **`use-case-reverse-engineer`** | `requirements` | Discovers and extracts formal UC-XXX specifications and boundary flows from legacy codebases, APIs, and UI routes. | [SKILL.md](./skills/requirements/use-case-reverse-engineer/SKILL.md) |
+🌐 **Language / Sprache:** [🇬🇧 English](README.md) | [🇩🇪 Deutsch](README.de.md)
 
 ---
 
-## 🔄 The Triad Workflow
+## ⚡ The Problem: Why AI Agents Hallucinate on User Stories
+
+LLMs do not have human intuition. When given a vague requirement like:
+> *"As an admin, I want to edit user profiles so that account details stay up to date."*
+
+The agent guesses the boundaries, hallucinates error handling, misses auth invariants, and writes shallow mocks. 
+
+**The Use Case Triad** fixes this by providing formal, mathematically structured behavioral contracts that AI agents can execute deterministically without drifting.
+
+---
+
+## 🧩 The Three Skills
 
 ```mermaid
 graph LR
-  subgraph Discovery
-    Legacy[Legacy Codebase / APIs / UI] -->|use-case-reverse-engineer| DraftSpecs[Draft UC-XXX Specs]
-  end
-
-  subgraph Specification
-    DraftSpecs -->|use-case-expert| FormalSpecs[Formal UC-XXX Specs<br/>+ Supplementary Specs]
-    NewIdea[New Feature / Domain Model] -->|use-case-expert| FormalSpecs
-  end
-
-  subgraph Implementation
-    FormalSpecs -->|use-case-implementer| Code[Vertical Slice Code<br/>+ Postcondition Tests]
-  end
+    LEGACY[Legacy Code / APIs] -->|1. reverse-engineer| RE[Draft Spec]
+    RE --> UCE[2. use-case-expert]
+    HUMAN[Human Idea / PRD] --> UCE
+    UCE -->|Approved UC-XXX Spec| UCI[3. use-case-implementer]
+    UCI --> PROD[TDD Tests + Verified Production Code]
 ```
+
+1. **[`use-case-expert`](skills/requirements/use-case-expert/SKILL.md)**: Authors, interviews, and audits formal Use Case specifications (Actors, Preconditions, Main Success Scenario, Extensions, and THAT-formula Postconditions).
+2. **[`use-case-implementer`](skills/requirements/use-case-implementer/SKILL.md)**: Turns approved specs into complete TDD suites and vertical production slices with zero speculative bloat.
+3. **[`use-case-reverse-engineer`](skills/requirements/use-case-reverse-engineer/SKILL.md)**: Scans legacy codebases and extracts the hidden behavioral contract as formal Use Cases.
 
 ---
 
-## 📖 How to Use the Skills (Bedienungsanleitung)
+## 🚀 Quick Start & Installation
 
-### 1. Authoring New Use Cases (`use-case-expert`)
-When starting a new feature or converting rough requirements:
+### For Google Antigravity
+Clone or copy the skills into your Antigravity workspace or global configuration directory:
+```powershell
+# In your Antigravity project root
+git clone https://github.com/dominikenkelmann/skills.git .agents/skills/dominiks-skills
+```
+Or copy individual skill folders directly into `.agents/skills/`.
 
+### For Claude Code / AI Agents
+Place the skill directories into your agent's skill directory:
 ```text
-Prompt:
-"Author a formal use case for customer checkout with credit card and PayPal. 
-Follow the use-case-expert standard and save to /docs/usecases/."
+.claude/skills/
+  ├── use-case-expert/
+  ├── use-case-implementer/
+  └── use-case-reverse-engineer/
 ```
-**What the agent does:**
-- Identifies the next available `UC-XXX` ID (e.g. `UC-001`).
-- Drafts atomic alternating actor/system steps.
-- Applies the **THAT formula** to all system checks.
-- Scans statements against `vague-terms.md` to remove ambiguous phrasing.
-- Outputs `UC-001 Process Checkout.md` with verifiable postconditions.
 
 ---
 
-### 2. Implementing from Specifications (`use-case-implementer`)
-When you're ready to turn a specification into working, tested code:
+## 📚 Documentation & Guides
 
-```text
-Prompt:
-"Implement /docs/usecases/UC-001 Process Checkout.md as a clean vertical slice with tests."
-```
-**What the agent does:**
-- Performs a **completeness gate check** (verifies `completeness: Intermediate` or `Complete`).
-- Designs input/output DTOs and validation schemas.
-- Scaffolds the use case handler/interactor matching the Basic Flow and Alternative Flows.
-- Generates automated tests mapped directly to the **Postconditions (`POST1, POST2...`)**.
-- Produces a summary table of files and covered flows.
-
----
-
-### 3. Extracting Specs from Legacy Code (`use-case-reverse-engineer`)
-When dealing with an undocumented codebase or preparing a refactoring baseline:
-
-```text
-Prompt:
-"Scan our user management routes in src/controllers/users/ and reverse-engineer 
-formal UC-XXX specifications."
-```
-**What the agent does:**
-- Scans route decorators, auth middleware, and schemas.
-- Consolidates cohesive CRUD operations into unified use case boundaries.
-- Presents a **candidate inventory table** for your confirmation.
-- Traces execution paths down to database mutations.
-- Generates formal, de-vagued `UC-XXX` specifications via `use-case-expert`.
+| Guide | Description | Language |
+| --- | --- | --- |
+| 📖 [Usage Guide](docs/usage-guide.md) | Triad overview, workflow diagrams, and THAT formula | 🇬🇧 English |
+| 📖 [use-case-expert Guide](docs/requirements/use-case-expert.md) | Authoring & auditing formal Use Case specifications | 🇬🇧 English |
+| 📖 [use-case-implementer Guide](docs/requirements/use-case-implementer.md) | TDD implementation & vertical slices | 🇬🇧 English |
+| 📖 [use-case-reverse-engineer Guide](docs/requirements/use-case-reverse-engineer.md) | Reconstructing contracts from existing code | 🇬🇧 English |
+| 🇩🇪 [Deutsche Dokumentation](docs/requirements/de/README.md) | Vollständige Dokumentationsübersicht | 🇩🇪 Deutsch |
+| 🇩🇪 [use-case-expert (DE)](docs/requirements/de/use-case-expert.md) | Spezifikationen erstellen & auditieren | 🇩🇪 Deutsch |
+| 🇩🇪 [use-case-implementer (DE)](docs/requirements/de/use-case-implementer.md) | TDD-Umsetzung & Verifikation | 🇩🇪 Deutsch |
+| 🇩🇪 [use-case-reverse-engineer (DE)](docs/requirements/de/use-case-reverse-engineer.md) | Code analysieren & Spezifikationen rekonstruieren | 🇩🇪 Deutsch |
 
 ---
 
-## 💡 Why These Skills Exist
+## 🎯 The "THAT" Formula
 
-### The Problem: "Vibe Coding" & The Vague Story Breakdown
+Vague postconditions cause agent hallucinations. The Triad enforces strict state mutations:
 
-Most failures with AI coding agents (Claude Code, Codex, Antigravity) are not code syntax errors — **they are communication breakdowns**:
-
-> *"The User Story was simple: 'As an admin, I want to manage users.' The agent produced 800 lines of code, hallucinated an edit modal, missed 3 database constraints, and bypassed the session auth check."*
-
-When agents receive loose user stories or rambling PRDs:
-1. **They guess the happy path** and invent non-standard boundaries.
-2. **They omit alternative flows** (error handling, validation rejections, rollbacks).
-3. **They write tests for implementation details** rather than verifiable state changes.
-
-### The Solution: Formal Use Cases as Agent Guardrails
-
-Formal Use Cases (Alistair Cockburn / RUP methodology) are the single most effective specification format for Large Language Models because they enforce:
-
-- **Strict Preconditions (`PRE1...`)**: Unambiguous entry guards and session requirements.
-- **Atomic Alternating Steps**: Step 1 Actor $\rightarrow$ Step 2 System $\rightarrow$ Step 3 Actor. No conversational ambiguity.
-- **The THAT Formula**: *"The system checks THAT [condition] is true"* with explicit alternative flows for every failure.
-- **Verifiable Postconditions (`POST1...`)**: Explicit persistent data mutations that map 1:1 to automated test assertions.
+- ❌ *Bad:* "The system updates the user profile."
+- ✅ *Good:* "System confirms **THAT** `User.email` is persisted in the database **AND** `Session.status` is set to `ACTIVE`."
 
 ---
 
-## 📚 Methodology & Reference Assets
+## 📄 License
 
-The `use-case-expert` skill includes a production-tested reference library in [`skills/requirements/use-case-expert/references/`](./skills/requirements/use-case-expert/references/):
-
-- **[`use-case-template.md`](./skills/requirements/use-case-expert/references/use-case-template.md)** — Standardized Markdown template for UC-XXX specifications.
-- **[`supplementary-specification-template.md`](./skills/requirements/use-case-expert/references/supplementary-specification-template.md)** — Template for cross-cutting non-functional requirements (NFRs).
-- **[`ui-sketch-guide.md`](./skills/requirements/use-case-expert/references/ui-sketch-guide.md)** — Rules for ASCII/structured UI element representations and control alignments.
-- **[`vague-terms.md`](./skills/requirements/use-case-expert/references/vague-terms.md)** — Automated de-vagueing dictionary replacing fuzzy phrasing (*"fast"*, *"secure"*, *"user-friendly"*) with testable criteria.
-
----
-
-## 👥 Author & License
-
-Created by **Dominik Enkelmann**.
-
-Licensed under the [MIT License](./LICENSE). Feel free to adapt, hack, and compose these skills in your own agent setups.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
