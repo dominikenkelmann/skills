@@ -18,7 +18,7 @@ mkdir -p .agents/skills
 cp -r skills/skills/requirements/* .agents/skills/
 ```
 
-For **Antigravity IDE** or **Claude Code**, the skills are automatically discovered once placed inside `.agents/skills/` or your global customization folder (`~/.gemini/config/skills/`).
+For **Antigravity IDE** or **Claude Code**, the skills are automatically discovered once placed inside `.agents/skills/` or your global customization directory (`~/.gemini/config/skills/`).
 
 ---
 
@@ -32,7 +32,7 @@ For **Antigravity IDE** or **Claude Code**, the skills are automatically discove
 
 ---
 
-## 🔄 The Workflow: How They Compose
+## 🔄 The Triad Workflow
 
 ```mermaid
 graph LR
@@ -49,6 +49,58 @@ graph LR
     FormalSpecs -->|use-case-implementer| Code[Vertical Slice Code<br/>+ Postcondition Tests]
   end
 ```
+
+---
+
+## 📖 How to Use the Skills (Bedienungsanleitung)
+
+### 1. Authoring New Use Cases (`use-case-expert`)
+When starting a new feature or converting rough requirements:
+
+```text
+Prompt:
+"Author a formal use case for customer checkout with credit card and PayPal. 
+Follow the use-case-expert standard and save to /docs/usecases/."
+```
+**What the agent does:**
+- Identifies the next available `UC-XXX` ID (e.g. `UC-001`).
+- Drafts atomic alternating actor/system steps.
+- Applies the **THAT formula** to all system checks.
+- Scans statements against `vague-terms.md` to remove ambiguous phrasing.
+- Outputs `UC-001 Process Checkout.md` with verifiable postconditions.
+
+---
+
+### 2. Implementing from Specifications (`use-case-implementer`)
+When you're ready to turn a specification into working, tested code:
+
+```text
+Prompt:
+"Implement /docs/usecases/UC-001 Process Checkout.md as a clean vertical slice with tests."
+```
+**What the agent does:**
+- Performs a **completeness gate check** (verifies `completeness: Intermediate` or `Complete`).
+- Designs input/output DTOs and validation schemas.
+- Scaffolds the use case handler/interactor matching the Basic Flow and Alternative Flows.
+- Generates automated tests mapped directly to the **Postconditions (`POST1, POST2...`)**.
+- Produces a summary table of files and covered flows.
+
+---
+
+### 3. Extracting Specs from Legacy Code (`use-case-reverse-engineer`)
+When dealing with an undocumented codebase or preparing a refactoring baseline:
+
+```text
+Prompt:
+"Scan our user management routes in src/controllers/users/ and reverse-engineer 
+formal UC-XXX specifications."
+```
+**What the agent does:**
+- Scans route decorators, auth middleware, and schemas.
+- Consolidates cohesive CRUD operations into unified use case boundaries.
+- Presents a **candidate inventory table** for your confirmation.
+- Traces execution paths down to database mutations.
+- Generates formal, de-vagued `UC-XXX` specifications via `use-case-expert`.
 
 ---
 
@@ -76,11 +128,11 @@ Formal Use Cases (Alistair Cockburn / RUP methodology) are the single most effec
 
 ---
 
-## 📖 Methodology & Reference Assets
+## 📚 Methodology & Reference Assets
 
 The `use-case-expert` skill includes a production-tested reference library in [`skills/requirements/use-case-expert/references/`](./skills/requirements/use-case-expert/references/):
 
-- **[`use-case-template.md`](./skills/requirements/use-case-expert/references/use-case-template.md)** — The standardized Markdown template for UC-XXX specifications.
+- **[`use-case-template.md`](./skills/requirements/use-case-expert/references/use-case-template.md)** — Standardized Markdown template for UC-XXX specifications.
 - **[`supplementary-specification-template.md`](./skills/requirements/use-case-expert/references/supplementary-specification-template.md)** — Template for cross-cutting non-functional requirements (NFRs).
 - **[`ui-sketch-guide.md`](./skills/requirements/use-case-expert/references/ui-sketch-guide.md)** — Rules for ASCII/structured UI element representations and control alignments.
 - **[`vague-terms.md`](./skills/requirements/use-case-expert/references/vague-terms.md)** — Automated de-vagueing dictionary replacing fuzzy phrasing (*"fast"*, *"secure"*, *"user-friendly"*) with testable criteria.
