@@ -26,13 +26,6 @@ graph LR
 | Legacy code needs documenting | `use-case-reverse-engineer` | Reads the code and reconstructs the hidden contract as a formal Use Case. |
 | Production bug without spec coverage | `use-case-expert` → `use-case-implementer` | Adds the failure as an Extension branch, generates the regression test, fixes the code. |
 
-## The THAT formula
-
-Vague postconditions cause hallucinations. The Triad enforces verifiable state mutations:
-
-- ❌ *"The system updates the user profile."*
-- ✅ *"System confirms THAT `User.email` is persisted AND `Session.status` is set to `ACTIVE`."*
-
 ## Detailed documentation
 
 - 📖 [use-case-expert](docs/requirements/use-case-expert.md)

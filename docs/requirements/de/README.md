@@ -26,13 +26,6 @@ graph LR
 | Legacy-Code braucht Dokumentation | `use-case-reverse-engineer` | Liest den Code und rekonstruiert den verborgenen Kontrakt als formalen Use Case. |
 | Produktionsfehler ohne Spec-Abdeckung | `use-case-expert` → `use-case-implementer` | Ergänzt den Fehler als Extension-Branch, erzeugt den Regressionstest, behebt den Bug. |
 
-## Die THAT-Formel
-
-Vage Nachbedingungen führen zu Halluzinationen. Die Triade erzwingt überprüfbare Zustandsmutationen:
-
-- ❌ *„Das System aktualisiert das Benutzerprofil."*
-- ✅ *„System bestätigt, DASS `User.email` persistiert ist UND `Session.status` auf `ACTIVE` steht."*
-
 ## Detaillierte Dokumentation
 
 - 📖 [use-case-expert](use-case-expert.md)

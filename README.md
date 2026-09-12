@@ -9,7 +9,7 @@
 
 ---
 
-🌐 **Language / Sprache:** [🇬🇧 English](README.md) | [🇩🇪 Deutsch](README.de.md)
+🌐 **Language / Sprache:** [🇬🇧 English](README.md) | [🇩🇪 Deutsch](docs/requirements/de/README.md)
 
 ---
 
